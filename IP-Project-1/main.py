@@ -32,10 +32,7 @@ else:
             IsValidUser = True
         else:
             print("Invaild Login ID or Username") 
-            try:
-                raise ValueError
-            except:
-                print("Not Allowed To Enter In System")
+            print("Not Allowed To Enter In System")
 
 if IsValidUser:
     try:

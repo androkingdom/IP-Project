@@ -79,6 +79,7 @@ def monthwise_sales_graph():
         result = cursor.fetchall()
         df = pd.DataFrame(result, columns=['Month', 'TotalSales'])
         df.plot(x='Month' , y='TotalSales')
+        pyplot.xticks(rotation = 0)
         pyplot.title('Total Monthwise Sales')
         pyplot.show()
         myconnection.close()
@@ -107,6 +108,7 @@ def region_sales_graph():
 
     df = pd.read_sql_query(query, connection)
     df.plot.bar(x='Manager',y='SalesRevenue')
+    pyplot.xticks(rotation = 0)
     pyplot.title(f'{selected_region} Region - Sales Revenue by Manager')
     pyplot.show()
 
@@ -115,7 +117,7 @@ def sales_person_graph():
     connection = dbengine1.connect()
     query = f""" select salesman ,sum(sale_amt) AS SalesRevenue from sales GROUP BY salesman; """
     df = pd.read_sql_query(query, connection)
-    df.plot.bar(x='salesman',y='SalesRevenue')
+    pyplot.xticks(rotation = 0)
     pyplot.title(" Sales Revenue - SALESMAN")
     pyplot.show()
     connection.close()
