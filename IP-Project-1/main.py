@@ -2,10 +2,7 @@
 import pandas as pd
 import mysql.connector as sqLtor
 from sqlalchemy import create_engine
-# from sqlalchemy import m
-
 import function
-
 
 # Variable Used
 IsValidUser = False
@@ -15,7 +12,6 @@ Working2 = True
 
 # Login Page
 user_df = pd.read_csv("user.csv", names=["UserName", "LoginId"])
-
 if user_df.empty:
     print("!!!No One Is Login!!!")
     print("!!!Please First Login!!!")
@@ -30,6 +26,7 @@ else:
         if username == i[1] and login_code == i[2]:
             print("Successfully Logined")
             IsValidUser = True
+            break
         else:
             print("Invaild Login ID or Username") 
             print("Not Allowed To Enter In System")
@@ -67,74 +64,74 @@ if IsValidUser:
         print(e)
 
 # Managment System 
-print("Welcome to the Main Home Page")
+    print("Welcome to the Main Home Page")
 
-while Working:
-    print(":--------- Sales Data Analysis Project---------:")
-    print(":--------- Select Choice ---------:")
-    dict_of_cho = {1 : "Dashboard" , 2 : "Insert Data",3 : "Delete Data" , 4 : "Exit"}
-    for choice_number in dict_of_cho:
-            print(f"{choice_number} : {dict_of_cho[choice_number]}")
-    print(":--------- -------------- ---------:")
-    choice = int(input('Enter Choice Number : '))
-    print(":--------- -------------- ---------:")
+    while Working:
+        print(":--------- Sales Data Analysis Project---------:")
+        print(":--------- Select Choice ---------:")
+        dict_of_cho = {1 : "Dashboard" , 2 : "Insert Data",3 : "Delete Data" , 4 : "Exit"}
+        for choice_number in dict_of_cho:
+                print(f"{choice_number} : {dict_of_cho[choice_number]}")
+        print(":--------- -------------- ---------:")
+        choice = int(input('Enter Choice Number : '))
+        print(":--------- -------------- ---------:")
 
-    match choice:
-        case 1 :
-            while Working2:
-                print(":--------- DASHBOARD ---------:")
-                print(":--------- Select Choice ---------:")
-                dict_of_dashboard = {1 : "MONTH WISE SALES REVENUE" , 2 : "REIGIONWISE SALES REVENUE", 3 : "SALES PERSON REVENUE" , 4 : "EXIT"}
-                for choice_number in dict_of_dashboard:
-                        print(f"{choice_number} : {dict_of_dashboard[choice_number]}")
-                print(":--------- ------------- ---------:")
-                choice_in = int(input('Enter Choice Number : '))
-                print(":--------- ------------- ---------:")
+        match choice:
+            case 1 :
+                while Working2:
+                    print(":--------- DASHBOARD ---------:")
+                    print(":--------- Select Choice ---------:")
+                    dict_of_dashboard = {1 : "MONTH WISE SALES REVENUE" , 2 : "REIGIONWISE SALES REVENUE", 3 : "SALES PERSON REVENUE" , 4 : "EXIT"}
+                    for choice_number in dict_of_dashboard:
+                            print(f"{choice_number} : {dict_of_dashboard[choice_number]}")
+                    print(":--------- ------------- ---------:")
+                    choice_in = int(input('Enter Choice Number : '))
+                    print(":--------- ------------- ---------:")
 
-                if choice_in == 1: 
-                    print("========================")
-                    print('MONTH WISE SALES REVENUE')
-                    print("========================")
-                    function.monthwise_sales_graph()
-                    break
+                    if choice_in == 1: 
+                        print("========================")
+                        print('MONTH WISE SALES REVENUE')
+                        print("========================")
+                        function.monthwise_sales_graph()
+                        break
 
-                elif choice_in == 2: 
-                    print("==========================")
-                    print('REIGION WISE SALES REVENUE')
-                    print("==========================")
-                    function.region_sales_graph()
-                    break
+                    elif choice_in == 2: 
+                        print("==========================")
+                        print('REIGION WISE SALES REVENUE')
+                        print("==========================")
+                        function.region_sales_graph()
+                        break
 
-                elif choice_in == 3:
-                    print("====================")
-                    print('SALES PERSON REVENUE')
-                    print("====================")
-                    function.sales_person_graph()
-                    break
+                    elif choice_in == 3:
+                        print("====================")
+                        print('SALES PERSON REVENUE')
+                        print("====================")
+                        function.sales_person_graph()
+                        break
 
-                elif choice_in == 4:
-                    print("Exit")
-                    Working2 = False
+                    elif choice_in == 4:
+                        print("Exit")
+                        Working2 = False
 
-        case 2 :
-            lst = []
-            dbeng = create_engine("mysql+pymysql://root:1234@localhost/IPProjectDB")
-            conc = dbeng.connect()
-            query = "SELECT * FROM Sales;"
-            df = pd.read_sql(query, conc)
-            for i in df.columns:
-                user = input(f"Enter {i} : ")
-                lst.append(user)
-            function.insert_query(lst)
-            pass
+            case 2 :
+                lst = []
+                dbeng = create_engine("mysql+pymysql://root:1234@localhost/IPProjectDB")
+                conc = dbeng.connect()
+                query = "SELECT * FROM Sales;"
+                df = pd.read_sql(query, conc)
+                for i in df.columns:
+                    user = input(f"Enter {i} : ")
+                    lst.append(user)
+                function.insert_query(lst)
+                pass
 
-        case 3 :
-            OrderOfDate = input("Enter Date : ")
-            NoOFUnit = input("Enter no. of unit : ")
-            ItemType = input("Enter item type : ")
-            function.delete_query(OrderOfDate , NoOFUnit , ItemType)
-            print("Data Deleted!!")
+            case 3 :
+                OrderOfDate = input("Enter Date : ")
+                NoOFUnit = input("Enter no. of unit : ")
+                ItemType = input("Enter item type : ")
+                function.delete_query(OrderOfDate , NoOFUnit , ItemType)
+                print("Data Deleted!!")
 
-        case 4 :
-            print("Exited") 
-            Working = False
+            case 4 :
+                print("Exited") 
+                Working = False

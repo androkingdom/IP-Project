@@ -4,7 +4,10 @@ import mysql.connector as sqLtor
 from matplotlib import pyplot
 from sqlalchemy import create_engine
 
-
+# DataFrame Of Graph
+monthwise_sales_df = {}
+region_sales_df = {}
+sales_person_df = {}
 # UDF To Be Used
 
 def insert_data():
@@ -66,6 +69,7 @@ def insert_data():
         print(e)
 
 def monthwise_sales_graph():
+    global monthwise_sales_df
     try:
         myconnection = sqLtor.connect(host='localhost',user='root',password='1234',port='3306',database='IPProjectDB')
 
@@ -77,10 +81,11 @@ def monthwise_sales_graph():
         '''
         cursor.execute(query)
         result = cursor.fetchall()
-        df = pd.DataFrame(result, columns=['Month', 'TotalSales'])
-        df.plot(x='Month' , y='TotalSales')
+        monthwise_sales_df = pd.DataFrame(result, columns=['Month', 'TotalSales'])
+        monthwise_sales_df.plot(x='Month' , y='TotalSales')
         pyplot.xticks(rotation = 0)
         pyplot.title('Total Monthwise Sales')
+        print(monthwise_sales_df)
         pyplot.show()
         myconnection.close()
 
@@ -88,6 +93,7 @@ def monthwise_sales_graph():
         print(e)
 
 def region_sales_graph():
+    global region_sales_df
     dbengine1 = create_engine("mysql+pymysql://root:1234@localhost/IPProjectDB")
     connection = dbengine1.connect()
     regions_query = "SELECT DISTINCT Region FROM Sales;"
@@ -106,19 +112,23 @@ def region_sales_graph():
         GROUP BY Manager;
     """
 
-    df = pd.read_sql_query(query, connection)
-    df.plot.bar(x='Manager',y='SalesRevenue')
+    region_sales_df = pd.read_sql_query(query, connection)
+    region_sales_df.plot.bar(x='Manager',y='SalesRevenue')
     pyplot.xticks(rotation = 0)
     pyplot.title(f'{selected_region} Region - Sales Revenue by Manager')
+    print(region_sales_df)
     pyplot.show()
 
 def sales_person_graph():
+    global sales_person_df
     dbengine1 = create_engine("mysql+pymysql://root:1234@localhost/IPProjectDB")
     connection = dbengine1.connect()
     query = f""" select salesman ,sum(sale_amt) AS SalesRevenue from sales GROUP BY salesman; """
-    df = pd.read_sql_query(query, connection)
+    sales_person_df = pd.read_sql_query(query, connection)
+    sales_person_df.plot(x="salesman",y="SalesRevenue")
     pyplot.xticks(rotation = 0)
     pyplot.title(" Sales Revenue - SALESMAN")
+    print(sales_person_df)
     pyplot.show()
     connection.close()
 
