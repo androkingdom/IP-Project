@@ -2,6 +2,8 @@ import pandas as pd
 import mysql.connector as sqLtor
 from sqlalchemy import create_engine
 
+print("!! Project Have Some Error To Fix !!")
+
 def insert_query():
     global strnglst
     global lst_of_record
