@@ -1,0 +1,40 @@
+-- Create Movie Table
+CREATE TABLE movies (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  year INT,
+  genre VARCHAR(50),
+  director VARCHAR(100)
+);
+
+-- Create Ratings Table
+CREATE TABLE ratings (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  movie_id INT NOT NULL,
+  rating DECIMAL(2,1) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (movie_id) REFERENCES movies(id)
+);
+
+-- Create Users Table (Optional)
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- Sample Data (Replace with your actual data)
+INSERT INTO movies (title, year, genre, director) VALUES
+("The Shawshank Redemption", 1994, "Drama", "Frank Darabont"),
+("The Godfather", 1972, "Crime", "Francis Ford Coppola"),
+("The Dark Knight", 2008, "Action/Crime", "Christopher Nolan"),
+("Pulp Fiction", 1994, "Crime/Comedy", "Quentin Tarantino"),
+("Schindler's List", 1993, "Drama/War", "Steven Spielberg");
+
+INSERT INTO ratings (user_id, movie_id, rating) VALUES
+(1, 1, 5.0),
+(2, 2, 4.5),
+(3, 3, 5.0),
+(4, 4, 4.0),
+(5, 5, 4.5);
