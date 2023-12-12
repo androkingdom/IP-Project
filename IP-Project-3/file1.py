@@ -10,7 +10,7 @@ database = "movie"
 
 # Connect to MySQL database
 db_connection = sqLtor.connect(host=host,user=user,password=password,database=database)
-cursor = db_connection.cursor()
+cursor = dbconnection.cursor()
 
 # Function to fetch movie data
 def get_movies():
