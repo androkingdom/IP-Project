@@ -16,7 +16,7 @@ def insert_query():
     print(f"-----------\n{mycursor.rowcount} record inserted.\n-----------")
     lst_of_record.clear()
     strnglst.clear()
- 
+
 def delete_query(primfield , primkey , tbname):
     mycursor = connection.cursor()
     query = f"delete from {tbname} where {primfield} = {primkey}"
