@@ -8,8 +8,8 @@ from sqlalchemy import create_engine
 monthwise_sales_df = {}
 region_sales_df = {}
 sales_person_df = {}
-# UDF To Be Used
 
+# UDF To Be Used
 def insert_data():
     try:
         db_connection = sqLtor.connect(host='localhost',user='root',password='1234',database='IPProjectDB')
