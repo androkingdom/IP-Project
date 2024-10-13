@@ -110,65 +110,64 @@ def InsertDummyData(DBname:str , TBname:str):
         print("Data Inserted")
 # ------------------------------------------------------------------------------------------------------------------------
 print()
-while True:
-    try:
-        dbname = "Perfume_Management_System"
-        tname = "AdminTable"
+try:
+    dbname = "Perfume_Management_System"
+    tname = "AdminTable"
 
-        CreateDB(dbname)
-        CreateTable(tname)
-        InsertDummyData(dbname , tname)
+    CreateDB(dbname)
+    CreateTable(tname)
+    InsertDummyData(dbname , tname)
+    print()
+    print("-----------------------Perfume Managment System-----------------------")
+    while True:
         print()
-        print("-----------------------Perfume Managment System-----------------------")
-        while True:
+        print("1: Enter New Data")
+        print("2: Retrieve Data")
+        print("3: Exit")
+        print()
+        Administrator = int(input("Enter Choice : "))
+        print('=================================')
+
+        if Administrator == 1:
+            try:
+                Brand_Name = input("Enter Brand Name : ")
+                Brand_Category = input("Enter Brand Category : ")
+                Brand_Price = int(input("Enter Brand Price : $"))
+                InStock = int(input("Enter Number of Items in Stock : "))
+                InsertData(tname , Brand_Name , Brand_Category , Brand_Price , InStock)
+                print("Data Entered Successfully !")
+                showTable(dbname , tname)
+            except Exception as e:
+                print(e)
+
+        elif Administrator == 2:
+            print('1: Search By Brand Name')
+            print('2: Search By Price Less Than')
+            print('3: Show Table')
+            print('4: Exit')
             print()
-            print("1: Enter New Data")
-            print("2: Retrieve Data")
-            print("3: Exit")
-            print()
-            Administrator = int(input("Enter Choice : "))
-            print('=================================')
-
-            if Administrator == 1:
-                try:
-                    Brand_Name = input("Enter Brand Name : ")
-                    Brand_Category = input("Enter Brand Category : ")
-                    Brand_Price = int(input("Enter Brand Price : $"))
-                    InStock = int(input("Enter Number of Items in Stock : "))
-                    InsertData(tname , Brand_Name , Brand_Category , Brand_Price , InStock)
-                    print("Data Entered Successfully !")
-                    showTable(dbname , tname)
-                except Exception as e:
-                    print(e)
-
-            elif Administrator == 2:
-                print('1: Search By Brand Name')
-                print('2: Search By Price Less Than')
-                print('3: Show Table')
-                print('4: Exit')
-                print()
-                Option = int(input("Enter Your Option : "))
-                print('===============================')
-                if Option == 1:
-                    BrandName = input("Enter Brand : ")
-                    searchByName(tname , dbname , BrandName)
-                elif Option == 2:
-                    price = int(input("Enter Minimum Price : $"))
-                    searchByLessPrice(tname , dbname , price)
-                elif Option == 3:
-                    showTable(dbname , tname)
-                elif Option == 4:
-                    print("Byee !")
-                    break
-                else:
-                    print("Invalid Command")
-
-            elif Administrator == 3:
-                print("Byee Byee !")
+            Option = int(input("Enter Your Option : "))
+            print('===============================')
+            if Option == 1:
+                BrandName = input("Enter Brand : ")
+                searchByName(tname , dbname , BrandName)
+            elif Option == 2:
+                price = int(input("Enter Minimum Price : $"))
+                searchByLessPrice(tname , dbname , price)
+            elif Option == 3:
+                showTable(dbname , tname)
+            elif Option == 4:
+                print("Byee !")
                 break
-
             else:
                 print("Invalid Command")
 
-    except Exception as e:
-        print(e)
+        elif Administrator == 3:
+            print("Byee Byee !")
+            break
+
+        else:
+            print("Invalid Command")
+
+except Exception as e:
+    print(e)
